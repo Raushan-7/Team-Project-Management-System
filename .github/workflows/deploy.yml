@@ -34,10 +34,11 @@ jobs:
       # Step 5: Trigger backend deployment on Render
       - name: Deploy Backend to Render
         run: |
-          echo "Triggering Render Deployment..."
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+          echo "Triggering Render Backend Deployment..."
+          curl -X POST ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
 
-      # Step 6: Frontend deploy handled by Vercel
-      - name: Deploy Frontend to Vercel
+      # Step 6: Trigger frontend deployment on Render
+      - name: Deploy Frontend to Render
         run: |
-          echo "Vercel auto-deploys from GitHub on push"
+          echo "Triggering Render Frontend Deployment..."
+          curl -X POST ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
