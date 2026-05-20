@@ -6,42 +6,38 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  docker-build:
     runs-on: ubuntu-latest
+
     steps:
+      # Step 1: Download repository code
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      # Step 2: Setup Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build and Push Backend Image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./backend
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/pm-backend:latest
+      # Step 3: Build Backend Docker Image
+      - name: Build Backend Docker Image
+        run: docker build -t pm-backend ./backend
 
-      - name: Build and Push Frontend Image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./frontend
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/pm-frontend:latest
+      # Step 4: Build Frontend Docker Image
+      - name: Build Frontend Docker Image
+        run: docker build -t pm-frontend ./frontend
 
   deploy:
-    needs: build-and-push
+    needs: docker-build
     runs-on: ubuntu-latest
+
     steps:
+      # Step 5: Trigger backend deployment on Render
       - name: Deploy Backend to Render
         run: |
           echo "Triggering Render Deployment..."
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
-          
+
+      # Step 6: Frontend deploy handled by Vercel
       - name: Deploy Frontend to Vercel
         run: |
-          echo "Assuming Vercel handles deployments via GitHub integration automatically on push."
-          echo "Alternatively, use Vercel CLI here."
+          echo "Vercel auto-deploys from GitHub on push"
