@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom dark mode classes to override default colors */
+body.dark-mode {
+  background-color: #121212;
+  color: #f3f4f6;
+}
+
+body.dark-mode .bg-white {
+  background-color: #1f2937 !important;
+  color: #f3f4f6 !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode .bg-gray-50 {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+}
+
+body.dark-mode input, 
+body.dark-mode select, 
+body.dark-mode textarea {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border-color: #4b5563 !important;
+}
+
+body.dark-mode input::placeholder {
+  color: #9ca3af !important;
+}
+
+body.dark-mode .text-gray-500 {
+  color: #d1d5db !important;
+}
+
+body.dark-mode .border {
+  border-color: #4b5563 !important;
+}
+
+body.dark-mode .border-b {
+  border-color: #4b5563 !important;
+}
