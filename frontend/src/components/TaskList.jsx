@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import API_URL from '../config';
 
 const TaskList = ({ 
   projectId, 
@@ -55,7 +56,7 @@ const TaskList = ({
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${projectId}/tasks`, {
+      const res = await fetch(`${API_URL}/api/projects/${projectId}/tasks`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ const TaskList = ({
   const handleStatusChange = async (taskId, newStatus) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${projectId}/tasks/${taskId}`, {
+      const res = await fetch(`${API_URL}/api/projects/${projectId}/tasks/${taskId}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -123,7 +124,7 @@ const TaskList = ({
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${projectId}/tasks/${taskId}`, {
+      const res = await fetch(`${API_URL}/api/projects/${projectId}/tasks/${taskId}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -155,7 +156,7 @@ const TaskList = ({
     if (!confirm('Are you sure you want to delete this task?')) return;
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${projectId}/tasks/${id}`, {
+      const res = await fetch(`${API_URL}/api/projects/${projectId}/tasks/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

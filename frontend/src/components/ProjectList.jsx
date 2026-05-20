@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import API_URL from '../config';
 
 const ProjectList = ({ 
   projects, 
@@ -24,7 +25,7 @@ const ProjectList = ({
     
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${id}`, {
+      const res = await fetch(`${API_URL}/api/projects/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -53,7 +54,7 @@ const ProjectList = ({
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${id}`, {
+      const res = await fetch(`${API_URL}/api/projects/${id}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ const ProjectList = ({
     
     const updatedMembers = [...(project.members || []).map(m => m._id || m), selectedUserToAdd];
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
+      const res = await fetch(`${API_URL}/api/projects/${project._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +115,7 @@ const ProjectList = ({
       .filter(m => m !== memberId);
       
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
+      const res = await fetch(`${API_URL}/api/projects/${project._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

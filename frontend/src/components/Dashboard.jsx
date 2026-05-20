@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProjectList from './ProjectList';
 import TaskList from './TaskList';
+import API_URL from '../config';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -25,7 +26,7 @@ const Dashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/users', {
+      const res = await fetch(`${API_URL}/api/auth/users`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (checkAuth(res)) return;
@@ -42,7 +43,7 @@ const Dashboard = () => {
     setIsLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/projects', {
+      const res = await fetch(`${API_URL}/api/projects`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (checkAuth(res)) return;
@@ -68,7 +69,7 @@ const Dashboard = () => {
     setIsLoading(true);
     setError('');
     try {
-      const res = await fetch(`http://localhost:5000/api/projects/${projId}/tasks`, {
+      const res = await fetch(`${API_URL}/api/projects/${projId}/tasks`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (checkAuth(res)) return;
@@ -100,7 +101,7 @@ const Dashboard = () => {
     setIsLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/projects', {
+      const res = await fetch(`${API_URL}/api/projects`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
